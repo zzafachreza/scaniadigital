@@ -76,7 +76,21 @@ export default function Login({ navigation }) {
                   console.log('update token', res);
                 });
 
-              navigation.replace('Menu0');
+
+              axios.post(urlAPI + '/1cek_monitoring.php', {
+                fid_user: res.data.id
+              }).then(zz => {
+                console.warn(zz.data);
+                if (zz.data == 200) {
+                  navigation.replace('MainApp');
+                } else {
+                  navigation.replace('Manu0');
+                }
+              })
+
+
+
+
             }
           });
       }, 1200);

@@ -131,7 +131,7 @@ export default function Menu0({ navigation }) {
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 30,
                         flex: 1,
-                    }}>Unit</Text>
+                    }}>Kode Unit</Text>
                     <TextInput autoCapitalize='none' placeholder='masukan unit' style={{
                         borderBottomWidth: 1,
                         borderBottomColor: colors.border,
@@ -150,7 +150,7 @@ export default function Menu0({ navigation }) {
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 30,
                         flex: 1,
-                    }}>Waktu Tidur</Text>
+                    }}>Durasi Tidur</Text>
                     <TextInput autoCapitalize='none' placeholder='masukan waktu tidur' style={{
                         borderBottomWidth: 1,
                         borderBottomColor: colors.border,
@@ -171,7 +171,7 @@ export default function Menu0({ navigation }) {
                         fontSize: windowWidth / 30,
                         flex: 1,
                     }}>Tensi</Text>
-                    <TextInput autoCapitalize='none' placeholder='masukan tensi' style={{
+                    <TextInput autoCapitalize='none' placeholder=' ( . . . / . . . )' style={{
                         borderBottomWidth: 1,
                         borderBottomColor: colors.border,
                         fontFamily: fonts.secondary[400],

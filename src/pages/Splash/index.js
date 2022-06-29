@@ -13,7 +13,7 @@ import {
 import { colors } from '../../utils/colors';
 import { fonts } from '../../utils/fonts';
 import { color, asin } from 'react-native-reanimated';
-import { getData, storeData } from '../../utils/localStorage';
+import { getData, storeData, urlAPI } from '../../utils/localStorage';
 import { PermissionsAndroid } from 'react-native';
 import LottieView from 'lottie-react-native';
 import axios from 'axios';
@@ -49,7 +49,16 @@ export default function Splash({ navigation }) {
         console.log('sudah login logon');
 
         setTimeout(() => {
-          navigation.replace('Menu0');
+          axios.post(urlAPI + '/1cek_monitoring.php', {
+            fid_user: res.id
+          }).then(zz => {
+            console.warn(zz.data);
+            if (zz.data == 200) {
+              navigation.replace('MainApp');
+            } else {
+              navigation.replace('Manu0');
+            }
+          })
         }, 1500);
       }
     });

@@ -17,6 +17,9 @@ import Menu4 from './Menu4';
 import Menu5 from './Menu5';
 import Menu5_detail from './Menu5_detail';
 import Menu6 from './Menu6';
+import MenuSplit from './MenuSplit';
+import MenuDone from './MenuDone';
+import Download from './Download';
 
 
 
@@ -44,5 +47,8 @@ export {
   Menu4,
   Menu5,
   Menu5_detail,
-  Menu6
+  Menu6,
+  MenuSplit,
+  MenuDone,
+  Download
 };

@@ -18,6 +18,7 @@ import { windowWidth, fonts } from '../../utils/fonts';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import { Icon } from 'react-native-elements';
+import { WebView } from 'react-native-webview';
 const wait = timeout => {
     return new Promise(resolve => {
         setTimeout(resolve, timeout);
@@ -47,7 +48,7 @@ export default function ({ navigation, route }) {
     const getDataBarang = () => {
         setRefreshing(true);
         axios
-            .post(urlAPI + '/1data_evdal.php')
+            .post(urlAPI + '/1data_evdal_done.php')
             .then(x => {
                 setData(x.data);
                 setRefreshing(false)
@@ -121,32 +122,6 @@ export default function ({ navigation, route }) {
                     </Text>
                 </View>
 
-                {user.id_departement == 3 && <View style={{
-                    borderRightWidth: 1,
-                    flex: 1,
-                    backgroundColor: colors.secondary,
-                    borderColor: colors.white,
-                    padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Menu6', item)} style={{
-                        backgroundColor: colors.primary,
-                        padding: 5,
-                        borderRadius: 5,
-                    }}>
-                        <Text
-                            style={{
-
-                                fontSize: windowWidth / 40,
-                                color: colors.white,
-                                fontFamily: fonts.secondary[600],
-                            }}>
-                            update
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                }
 
 
                 <View style={{
@@ -158,7 +133,7 @@ export default function ({ navigation, route }) {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Menu5_detail', item)} >
+                    <TouchableOpacity onPress={() => navigation.navigate('Download', item)} >
                         <Icon type='ionicon' name='folder-open' color={colors.tertiary} />
                     </TouchableOpacity>
                 </View>
@@ -245,27 +220,7 @@ export default function ({ navigation, route }) {
                         </Text>
                     </View>
 
-                    {user.id_departement == 3 &&
-                        <View style={{
-                            borderRightWidth: 1,
-                            flex: 1,
-                            backgroundColor: colors.primary,
-                            borderColor: colors.white,
-                            padding: 5,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text
-                                style={{
 
-                                    fontSize: windowWidth / 40,
-                                    color: colors.white,
-                                    fontFamily: fonts.secondary[600],
-                                }}>
-                                update
-                            </Text>
-                        </View>
-                    }
                     <View style={{
                         borderRightWidth: 1,
                         backgroundColor: colors.primary,

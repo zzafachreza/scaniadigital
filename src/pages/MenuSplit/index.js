@@ -47,8 +47,9 @@ export default function ({ navigation, route }) {
     const getDataBarang = () => {
         setRefreshing(true);
         axios
-            .post(urlAPI + '/1data_evdal.php')
+            .post(urlAPI + '/1data_split.php')
             .then(x => {
+                console.warn(x.data);
                 setData(x.data);
                 setRefreshing(false)
             });
@@ -121,7 +122,7 @@ export default function ({ navigation, route }) {
                     </Text>
                 </View>
 
-                {user.id_departement == 3 && <View style={{
+                <View style={{
                     borderRightWidth: 1,
                     flex: 1,
                     backgroundColor: colors.secondary,
@@ -130,37 +131,61 @@ export default function ({ navigation, route }) {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Menu6', item)} style={{
-                        backgroundColor: colors.primary,
-                        padding: 5,
-                        borderRadius: 5,
-                    }}>
-                        <Text
-                            style={{
 
-                                fontSize: windowWidth / 40,
-                                color: colors.white,
-                                fontFamily: fonts.secondary[600],
-                            }}>
-                            update
-                        </Text>
-                    </TouchableOpacity>
+                    <Text
+                        style={{
+
+                            fontSize: windowWidth / 40,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        {item.nama_pramudi}
+                    </Text>
+
                 </View>
-                }
+
+                <View style={{
+                    borderRightWidth: 1,
+                    flex: 1,
+                    backgroundColor: colors.secondary,
+                    borderColor: colors.white,
+                    padding: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+
+                    <Text
+                        style={{
+
+                            fontSize: windowWidth / 40,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        {item.koridor}
+                    </Text>
+
+                </View>
+
 
 
                 <View style={{
                     borderRightWidth: 1,
                     backgroundColor: colors.secondary,
                     borderColor: colors.white,
-                    flex: 0.5,
+                    flex: 1,
                     padding: 5,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Menu5_detail', item)} >
-                        <Icon type='ionicon' name='folder-open' color={colors.tertiary} />
-                    </TouchableOpacity>
+                    <Text
+                        style={{
+
+                            fontSize: windowWidth / 40,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        {item.keluhan}
+                    </Text>
                 </View>
 
             </View>
@@ -245,32 +270,32 @@ export default function ({ navigation, route }) {
                         </Text>
                     </View>
 
-                    {user.id_departement == 3 &&
-                        <View style={{
-                            borderRightWidth: 1,
-                            flex: 1,
-                            backgroundColor: colors.primary,
-                            borderColor: colors.white,
-                            padding: 5,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text
-                                style={{
 
-                                    fontSize: windowWidth / 40,
-                                    color: colors.white,
-                                    fontFamily: fonts.secondary[600],
-                                }}>
-                                update
-                            </Text>
-                        </View>
-                    }
+                    <View style={{
+                        borderRightWidth: 1,
+                        flex: 1,
+                        backgroundColor: colors.primary,
+                        borderColor: colors.white,
+                        padding: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Text
+                            style={{
+
+                                fontSize: windowWidth / 40,
+                                color: colors.white,
+                                fontFamily: fonts.secondary[600],
+                            }}>
+                            Nama Pramudi
+                        </Text>
+                    </View>
+
                     <View style={{
                         borderRightWidth: 1,
                         backgroundColor: colors.primary,
                         borderColor: colors.white,
-                        flex: 0.5,
+                        flex: 1,
                         padding: 5,
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -281,7 +306,25 @@ export default function ({ navigation, route }) {
                                 color: colors.white,
                                 fontFamily: fonts.secondary[600],
                             }}>
-                            Laporan
+                            Koridor
+                        </Text>
+                    </View>
+                    <View style={{
+                        borderRightWidth: 1,
+                        backgroundColor: colors.primary,
+                        borderColor: colors.white,
+                        flex: 1,
+                        padding: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Text
+                            style={{
+                                fontSize: windowWidth / 40,
+                                color: colors.white,
+                                fontFamily: fonts.secondary[600],
+                            }}>
+                            Keluhan
                         </Text>
                     </View>
 

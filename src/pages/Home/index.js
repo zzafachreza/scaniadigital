@@ -20,6 +20,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import LottieView from 'lottie-react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
 
 export default function Home({ navigation }) {
   const [user, setUser] = useState([]);
@@ -217,7 +218,18 @@ export default function Home({ navigation }) {
         />
         <DataKategori
           warna={colors.secondary}
-          onPress={() => navigation.navigate('Menu4')}
+          onPress={() => {
+            if (user.nama_departement == "CHECKER") {
+              navigation.navigate('Menu4')
+            } else if (user.nama_departement == "MEKANIK") {
+              navigation.navigate('Menu5')
+            } else {
+              showMessage({
+                message: 'Menu khusus checker dan mekanik !'
+              })
+            }
+          }
+          }
           icon="file-tray-stacked"
           nama="Laporan Evdal"
           nama2="Input laporan Evdal"

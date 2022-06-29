@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
 import { colors } from '../utils/colors';
 import { color } from 'react-native-reanimated';
-import { Account, EditProfile, GetStarted, Home, Login, Menu0, Menu1, Menu1_detail, Menu2, Menu2_detail, Menu3, Menu4, Menu5, Menu5_detail, Menu6, MenuSlp, Register, Splash, Success } from '../pages';
+import { Account, Download, EditProfile, GetStarted, Home, Login, Menu0, Menu1, Menu1_detail, Menu2, Menu2_detail, Menu3, Menu4, Menu5, Menu5_detail, Menu6, MenuDone, MenuSlp, MenuSplit, Register, Splash, Success } from '../pages';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,7 +22,8 @@ const MainApp = () => {
   return (
     <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Laporan" component={Menu5} />
+      <Tab.Screen name="Split" component={MenuSplit} />
+      <Tab.Screen name="Evdal" component={MenuDone} />
       {/*<Tab.Screen name="Cart" component={Cart} />  */}
       {/* <Tab.Screen name="Notifikasi" component={Notifikasi} /> */}
       <Tab.Screen name="Account" component={Account} />
@@ -51,6 +52,14 @@ export default function Router() {
       <Stack.Screen
         name="Success"
         component={Success}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Download"
+        component={Download}
         options={{
           headerShown: false,
         }}
@@ -212,6 +221,15 @@ export default function Router() {
       <Stack.Screen
         name="Menu5"
         component={Menu5}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+
+      <Stack.Screen
+        name="MenuDone"
+        component={MenuDone}
         options={{
           headerShown: false,
         }}
