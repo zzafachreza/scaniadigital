@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -6,6 +6,8 @@ import {
     SafeAreaView,
     Dimensions,
     Animated,
+    PermissionsAndroid,
+    Alert
 } from 'react-native';
 import { fonts } from '../../utils/fonts';
 import LottieView from 'lottie-react-native';
@@ -18,6 +20,7 @@ export default function Download({ navigation, route }) {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
     const txt = new Animated.Value(-windowWidth);
+    const [open, setOpen] = useState(false);
 
     Animated.timing(txt, {
         toValue: 10,
@@ -25,12 +28,52 @@ export default function Download({ navigation, route }) {
         useNativeDriver: false,
     }).start();
 
-    setTimeout(() => {
-        navigation.goBack();
-    }, 2000)
 
-    const messege = route.params.messege;
-    const kode = route.params.kode;
+    const requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    title: 'Izinkan Untuk Akses Penyimpanan',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                }
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.error("You can use the storage");
+                setOpen(true);
+
+            } else {
+
+                Alert.alert('Izin Penyimpanan Belum Aktif', 'Izinkan sekarang agar bisa melakukan download',
+                    [
+                        {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                        },
+                        { text: "OK", onPress: () => requestCameraPermission() }
+                    ])
+
+                console.error("Camera permission denied");
+
+
+            }
+        } catch (err) {
+            console.warn(err);
+
+        }
+    };
+
+    useEffect(() => {
+
+        requestCameraPermission();
+
+
+
+
+    }, [])
+
 
 
     return (
@@ -38,35 +81,25 @@ export default function Download({ navigation, route }) {
             style={{
                 flex: 1,
             }}>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                    paddingBottom: 100,
-                }}>
-                <LottieView
-                    source={require('../../assets/success.json')}
-                    autoPlay
-                    loop={false}
-                />
+            {open &&
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        paddingBottom: 100,
+                    }}>
+                    <LottieView
+                        source={require('../../assets/success.json')}
+                        autoPlay
+                        loop={false}
+                    />
 
-                <WebView style={{
-                    height: 1
-                }} source={{ uri: 'https://scaniadigital.zavalabs.com/pdf?kode=' + kode }} />
-            </View>
-            {/* <View
-                style={{
-                    //   flex: 1,
-                    padding: 10,
-                }}>
-                <MyButton
-                    title="KEMBALI"
-                    warna={colors.primary}
-                    Icons="arrow-back"
-                    onPress={() => navigation.goBack()}
-                />
-            </View> */}
+                    <WebView style={{
+                        height: 1
+                    }} source={{ uri: 'https://scaniadigital.zavalabs.com/pdf?kode=' + route.params.kode }} />
+                </View>
+            }
 
         </SafeAreaView>
 
