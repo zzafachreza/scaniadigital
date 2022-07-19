@@ -221,11 +221,11 @@ export default function Home({ navigation }) {
           onPress={() => {
             if (user.nama_departement == "CHECKER") {
               navigation.navigate('Menu4')
-            } else if (user.nama_departement == "MEKANIK") {
+            } else if (user.nama_departement == "TEKNISI") {
               navigation.navigate('Menu5')
             } else {
               showMessage({
-                message: 'Menu khusus checker dan mekanik !'
+                message: 'Menu khusus checker dan teknisi !'
               })
             }
           }
