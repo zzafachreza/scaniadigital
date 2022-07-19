@@ -56,9 +56,9 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
         if (label === 'Home') {
           iconName = 'home-outline';
           Newlabel = 'Home';
-        } else if (label === 'Account') {
-          iconName = 'person-outline';
-          Newlabel = 'Akun';
+        } else if (label === 'Monitoring') {
+          iconName = 'pie-chart-outline';
+          Newlabel = 'Monitoring';
         } else if (label === 'Evdal') {
           iconName = 'file-tray-stacked-outline';
           Newlabel = 'Evdal';

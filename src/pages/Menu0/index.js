@@ -22,10 +22,16 @@ import { MyButton, MyGap } from '../../components';
 import SignatureScreen from "react-native-signature-canvas";
 import SignatureCapture from 'react-native-signature-capture';
 import { showMessage } from 'react-native-flash-message';
+import { maskJs, maskCurrency } from 'mask-js';
 
 export default function Menu0({ navigation }) {
 
-    const [kirim, setKirim] = useState({});
+    const [kirim, setKirim] = useState({
+        unit: '',
+        waktu_tidur: '',
+        tensi: '',
+        koridor: ''
+    });
     const myDate = new Date();
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
@@ -176,10 +182,14 @@ export default function Menu0({ navigation }) {
                         borderBottomColor: colors.border,
                         fontFamily: fonts.secondary[400],
                         fontSize: windowWidth / 30,
-                    }} value={kirim.tensi} onChangeText={x => setKirim({
-                        ...kirim,
-                        tensi: x
-                    })} />
+                    }} value={kirim.tensi} onChangeText={x => {
+
+
+                        setKirim({
+                            ...kirim,
+                            tensi: maskJs('999/99', x)
+                        })
+                    }} />
                 </View>
 
                 <View style={{
@@ -206,22 +216,42 @@ export default function Menu0({ navigation }) {
                 <MyGap jarak={10} />
                 {!loading && <MyButton onPress={() => {
 
-                    setLoading(true);
+                    if (kirim.unit.length === 0) {
+                        showMessage({
+                            message: 'Maaf kode unit masih kosong !',
+                        });
+                    } else if (kirim.waktu_tidur.length === 0) {
+                        showMessage({
+                            message: 'Maaf durasi tidur masih kosong !',
+                        });
+                    } else if (kirim.tensi.length === 0) {
+                        showMessage({
+                            message: 'Maaf tensi masih kosong !',
+                        });
+                    } else if (kirim.koridor.length === 0) {
+                        showMessage({
+                            message: 'Maaf koridor masih kosong !',
+                        });
+                    } else {
+                        setLoading(true);
 
-                    console.log(kirim);
+                        console.log(kirim);
 
-                    axios.post(urlAPI + '/1add_kesehatan.php', kirim).then(res => {
-                        console.log(res.data);
-                        setTimeout(() => {
-                            setLoading(false);
-                            navigation.replace('MainApp');
-                            showMessage({
-                                message: 'Data berhasil dikirm !',
-                                type: 'success'
-                            })
-                        }, 1000)
+                        axios.post(urlAPI + '/1add_kesehatan.php', kirim).then(res => {
+                            console.log(res.data);
+                            setTimeout(() => {
+                                setLoading(false);
+                                navigation.replace('MainApp');
+                                showMessage({
+                                    message: 'Data berhasil dikirm !',
+                                    type: 'success'
+                                })
+                            }, 1000)
 
-                    })
+                        })
+                    }
+
+
 
                 }} title="SUBMIT" warna={colors.primary} Icons="create-outline" />}
                 {loading && <ActivityIndicator size="large" color={colors.primary} />}

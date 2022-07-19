@@ -9,7 +9,6 @@ import {
     RefreshControl,
     Image,
     TouchableOpacity,
-    Alert,
 } from 'react-native';
 import { storeData, getData, urlAPI } from '../../utils/localStorage';
 import axios from 'axios';
@@ -45,25 +44,11 @@ export default function ({ navigation, route }) {
 
     }, []);
 
-
-    const __updateData = (x) => {
-        setRefreshing(true);
-        axios.post(urlAPI + '/1update_split.php', {
-            id: x
-        })
-            .then(x => {
-                console.warn(x.data);
-                getDataBarang();
-                setRefreshing(false)
-            });
-    }
-
     const getDataBarang = () => {
         setRefreshing(true);
         axios
-            .post(urlAPI + '/1data_split.php')
+            .post(urlAPI + '/1data_monitoring.php')
             .then(x => {
-                console.warn(x.data);
                 setData(x.data);
                 setRefreshing(false)
             });
@@ -83,14 +68,14 @@ export default function ({ navigation, route }) {
                     borderLeftWidth: 1,
                     backgroundColor: colors.secondary,
                     borderColor: colors.white,
-                    flex: 0.3,
+                    flex: 0.2,
                     padding: 5,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
                     <Text
                         style={{
-                            fontSize: windowWidth / 44,
+                            fontSize: windowWidth / 40,
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
                         }}>
@@ -101,10 +86,10 @@ export default function ({ navigation, route }) {
                     borderRightWidth: 1,
                     backgroundColor: colors.secondary,
                     borderColor: colors.white,
-                    flex: 1,
+                    flex: 1.3,
                     padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start'
                 }}>
                     <Text
                         style={{
@@ -113,7 +98,7 @@ export default function ({ navigation, route }) {
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
                         }}>
-                        {item.nomor_body}
+                        {item.tanggal} {item.jam.substr(0, 5)}
                     </Text>
                 </View>
                 <View style={{
@@ -132,7 +117,7 @@ export default function ({ navigation, route }) {
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
                         }}>
-                        {item.tanggal}
+                        {item.unit}
                     </Text>
                 </View>
 
@@ -145,7 +130,6 @@ export default function ({ navigation, route }) {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-
                     <Text
                         style={{
 
@@ -153,21 +137,40 @@ export default function ({ navigation, route }) {
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
                         }}>
-                        {item.nama_pramudi}
+                        {item.waktu_tidur}
                     </Text>
-
                 </View>
+
 
                 <View style={{
                     borderRightWidth: 1,
-                    flex: 1,
                     backgroundColor: colors.secondary,
                     borderColor: colors.white,
+                    flex: 0.5,
                     padding: 5,
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
+                    <Text
+                        style={{
 
+                            fontSize: windowWidth / 40,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        {item.tensi}
+                    </Text>
+                </View>
+
+                <View style={{
+                    borderRightWidth: 1,
+                    backgroundColor: colors.secondary,
+                    borderColor: colors.white,
+                    flex: 0.5,
+                    padding: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
                     <Text
                         style={{
 
@@ -176,80 +179,6 @@ export default function ({ navigation, route }) {
                             fontFamily: fonts.secondary[400],
                         }}>
                         {item.koridor}
-                    </Text>
-
-                </View>
-
-
-
-                <View style={{
-                    borderRightWidth: 1,
-                    backgroundColor: colors.secondary,
-                    borderColor: colors.white,
-                    flex: 1,
-                    padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-
-                            fontSize: windowWidth / 40,
-                            color: colors.black,
-                            fontFamily: fonts.secondary[400],
-                        }}>
-                        {item.keluhan}
-                    </Text>
-                </View>
-                {user.id_departement == 3 &&
-                    <View style={{
-                        borderRightWidth: 1,
-                        backgroundColor: colors.secondary,
-                        borderColor: colors.white,
-                        flex: 1,
-                        padding: 5,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        {item.cek == 0 &&
-                            <TouchableOpacity onPress={() => {
-                                Alert.alert('Apakah Anda akan update ini ?', 'nomor body' + item.nomor_body + ' dan pramudi ' + item.nama_pramudi + '?',
-                                    [
-                                        {
-                                            text: "Cancel",
-                                            onPress: () => console.log("Cancel Pressed"),
-                                            style: "cancel"
-                                        },
-                                        {
-                                            text: "OK", onPress: () => {
-                                                __updateData(item.id)
-                                            }
-                                        }
-                                    ])
-                            }}>
-                                <Icon type='ionicon' name='checkmark-circle-outline' color={colors.black} />
-                            </TouchableOpacity>}
-                        {item.cek == 1 && <Icon type='ionicon' name='checkmark-circle' color={colors.success} />}
-                    </View>
-
-                }
-                <View style={{
-                    borderRightWidth: 1,
-                    backgroundColor: colors.secondary,
-                    borderColor: colors.white,
-                    flex: 1,
-                    padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Text
-                        style={{
-
-                            fontSize: windowWidth / 40,
-                            color: colors.black,
-                            fontFamily: fonts.secondary[400],
-                        }}>
-                        {item.upd}
                     </Text>
                 </View>
 
@@ -282,7 +211,7 @@ export default function ({ navigation, route }) {
                         borderLeftWidth: 1,
                         backgroundColor: colors.primary,
                         borderColor: colors.white,
-                        flex: 0.3,
+                        flex: 0.2,
                         padding: 5,
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -300,7 +229,7 @@ export default function ({ navigation, route }) {
                         borderRightWidth: 1,
                         backgroundColor: colors.primary,
                         borderColor: colors.white,
-                        flex: 1,
+                        flex: 1.3,
                         padding: 5,
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -312,7 +241,7 @@ export default function ({ navigation, route }) {
                                 color: colors.white,
                                 fontFamily: fonts.secondary[600],
                             }}>
-                            Nomor Body
+                            Hari Tgl/Jam
                         </Text>
                     </View>
                     <View style={{
@@ -331,7 +260,7 @@ export default function ({ navigation, route }) {
                                 color: colors.white,
                                 fontFamily: fonts.secondary[600],
                             }}>
-                            tanggal
+                            Kode Unit
                         </Text>
                     </View>
 
@@ -352,7 +281,7 @@ export default function ({ navigation, route }) {
                                 color: colors.white,
                                 fontFamily: fonts.secondary[600],
                             }}>
-                            Nama Pramudi
+                            Durasi Tidur
                         </Text>
                     </View>
 
@@ -360,7 +289,26 @@ export default function ({ navigation, route }) {
                         borderRightWidth: 1,
                         backgroundColor: colors.primary,
                         borderColor: colors.white,
-                        flex: 1,
+                        flex: 0.5,
+                        padding: 5,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <Text
+                            style={{
+                                fontSize: windowWidth / 40,
+                                color: colors.white,
+                                fontFamily: fonts.secondary[600],
+                            }}>
+                            Tensi
+                        </Text>
+                    </View>
+
+                    <View style={{
+                        borderRightWidth: 1,
+                        backgroundColor: colors.primary,
+                        borderColor: colors.white,
+                        flex: 0.5,
                         padding: 5,
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -372,62 +320,6 @@ export default function ({ navigation, route }) {
                                 fontFamily: fonts.secondary[600],
                             }}>
                             Koridor
-                        </Text>
-                    </View>
-                    <View style={{
-                        borderRightWidth: 1,
-                        backgroundColor: colors.primary,
-                        borderColor: colors.white,
-                        flex: 1,
-                        padding: 5,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Text
-                            style={{
-                                fontSize: windowWidth / 40,
-                                color: colors.white,
-                                fontFamily: fonts.secondary[600],
-                            }}>
-                            Keluhan
-                        </Text>
-                    </View>
-                    {user.id_departement == 3 &&
-                        <View style={{
-                            borderRightWidth: 1,
-                            backgroundColor: colors.primary,
-                            borderColor: colors.white,
-                            flex: 1,
-                            padding: 5,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Text
-                                style={{
-                                    fontSize: windowWidth / 40,
-                                    color: colors.white,
-                                    fontFamily: fonts.secondary[600],
-                                }}>
-                                Cek
-                            </Text>
-                        </View>
-                    }
-                    <View style={{
-                        borderRightWidth: 1,
-                        backgroundColor: colors.primary,
-                        borderColor: colors.white,
-                        flex: 1,
-                        padding: 5,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Text
-                            style={{
-                                fontSize: windowWidth / 40,
-                                color: colors.white,
-                                fontFamily: fonts.secondary[600],
-                            }}>
-                            Update
                         </Text>
                     </View>
 

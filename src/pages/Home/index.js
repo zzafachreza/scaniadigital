@@ -169,7 +169,7 @@ export default function Home({ navigation }) {
           </Text>
 
         </View>
-        <View style={{
+        <TouchableOpacity onPress={() => navigation.navigate('Account')} style={{
           justifyContent: 'center',
           alignItems: 'center',
         }}>
@@ -177,7 +177,7 @@ export default function Home({ navigation }) {
             width: 50,
             resizeMode: 'contain'
           }} />
-        </View>
+        </TouchableOpacity>
       </View>
 
       <MyCarouser />

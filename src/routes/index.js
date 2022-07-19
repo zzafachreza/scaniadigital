@@ -14,6 +14,7 @@ import { BottomNavigator } from '../components';
 import { colors } from '../utils/colors';
 import { color } from 'react-native-reanimated';
 import { Account, Download, EditProfile, GetStarted, Home, Login, Menu0, Menu1, Menu1_detail, Menu2, Menu2_detail, Menu3, Menu4, Menu5, Menu5_detail, Menu6, MenuDone, MenuSlp, MenuSplit, Register, Splash, Success } from '../pages';
+import Monitoring from '../pages/Monitoring';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,7 +27,7 @@ const MainApp = () => {
       <Tab.Screen name="Evdal" component={MenuDone} />
       {/*<Tab.Screen name="Cart" component={Cart} />  */}
       {/* <Tab.Screen name="Notifikasi" component={Notifikasi} /> */}
-      <Tab.Screen name="Account" component={Account} />
+      <Tab.Screen name="Monitoring" component={Monitoring} />
     </Tab.Navigator>
   );
 };
@@ -46,6 +47,33 @@ export default function Router() {
         component={GetStarted}
         options={{
           headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{
+          headerTitle: 'Account',
+          headerTintColor: 'white',
+          headerStyle: {
+            backgroundColor: colors.primary,
+            elevation: 0, // remove shadow on Android
+          },
+          cardStyleInterpolator: ({ current, layouts }) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
         }}
       />
 

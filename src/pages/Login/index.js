@@ -84,7 +84,7 @@ export default function Login({ navigation }) {
                 if (zz.data == 200) {
                   navigation.replace('MainApp');
                 } else {
-                  navigation.replace('Manu0');
+                  navigation.replace('Menu0');
                 }
               })
 

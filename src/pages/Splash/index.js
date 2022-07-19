@@ -56,7 +56,7 @@ export default function Splash({ navigation }) {
             if (zz.data == 200) {
               navigation.replace('MainApp');
             } else {
-              navigation.replace('Manu0');
+              navigation.replace('Menu0');
             }
           })
         }, 1500);
